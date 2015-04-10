@@ -7,9 +7,21 @@ var triangle = function(a, b, c) {
   sorted = lengths.sort(function(a, b) { return a-b});
 
   if (sorted[0] + sorted[1] > sorted[2]) {
-    return true;
+
+    if ((sorted[0] != sorted[1]) && (sorted[0] != sorted[2]) && (sorted[1] != sorted[2])) {
+      return "scalene";
+    }
+
+    if ((sorted[0] === sorted[1]) && (sorted[0] != sorted[2])) {
+      return "isosceles";
+    }
+
+    if ((sorted[0] === sorted[1]) && (sorted[0] === sorted[2]) && (sorted[1] === sorted[2])) {
+      return "equilateral";
+    }
+
   } else {
     return false;
   }
 
-}
+};
