@@ -2,17 +2,16 @@ var triangle = function(a, b, c) {
 
   var lengths = [Math.abs(a), Math.abs(b), Math.abs(c)],
       sorted = [],
-      squares = [];
+      squares = [],
+      i;
 
 //sorts inputs from smallest to largest
   sorted = lengths.sort(function(a, b) { return a-b});
 
-  squares[0] = Math.pow(sorted[0], 2);
-  squares[1] = Math.pow(sorted[1], 2);
-  squares[2] = Math.pow(sorted[2], 2);
 
-  console.log(squares);
-
+  for (i = 0; i < sorted.length; i++) {
+    squares[i] = Math.pow(sorted[i], 2);
+  }
 
   if (sorted[0] + sorted[1] > sorted[2]) {
 
