@@ -25,3 +25,25 @@ var triangle = function(a, b, c) {
   }
 
 };
+
+$(document).ready(function() {
+
+  $('form#input').submit(function(event) {
+
+    $('#type').empty();
+
+
+    var a = $('input#side1').val();
+    var b = $('input#side2').val();
+    var c = $('input#side3').val();
+
+    var result = triangle(a, b, c);
+
+    $('#type').text(result);
+
+  $('#result').show()
+  event.preventDefault();
+
+  });
+
+});
