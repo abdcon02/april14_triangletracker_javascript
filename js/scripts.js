@@ -21,7 +21,7 @@ var triangle = function(a, b, c) {
     }
 
   } else {
-    return false;
+    return "impossible";
   }
 
 };
