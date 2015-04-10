@@ -1,6 +1,6 @@
 var triangle = function(a, b, c) {
 
-  var lengths = [a, b, c],
+  var lengths = [Math.abs(a), Math.abs(b), Math.abs(c)],
       sorted = [];
 
 //sorts inputs from smallest to largest

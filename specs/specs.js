@@ -19,4 +19,8 @@ describe('triangle', function() {
     expect(triangle(3, 3, 3)).to.equal("equilateral");
   });
 
+  it("will accept negative inputs as positive values", function() {
+    expect(triangle(-3, 3, 3)).to.equal("equilateral");
+  });
+
 });
