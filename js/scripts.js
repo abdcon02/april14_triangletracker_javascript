@@ -40,19 +40,15 @@ $(document).ready(function() {
                         if (sorted[0] <= (sorted[1] + sorted[2])){
 
                           if (this.side1 === this.side2 && this.side2 === this.side3 && this.side3 === this.side1){
-                            $('#equilateral').append("<li>" + this.side1 + ", " + this.side2 + ", " + this.side3 + "</li>");
                             return "equilateral";
 
                           } if (this.side1 === this.side2 || this.side2 === this.side3 || this.side3 === this.side1 ){
-                              $('#isosceles').append("<li>" + this.side1 + ", " + this.side2 + ", " + this.side3 + "</li>");
                               return "isosceles";
 
                           } if ((this.side1 !== this.side2) && (this.side2 !== this.side3)) {
-                              $('#scalene').append("<li>" + this.side1 + ", " + this.side2 + ", " + this.side3 + "</li>");
                               return "scalene";
 
                         }} else {
-                          $('#impossible').append("<li>" + this.side1 + ", " + this.side2 + ", " + this.side3 + "</li>");
                           return "impossible";
 
                         }
@@ -60,6 +56,9 @@ $(document).ready(function() {
                 };
 
        $('#type').text(triangle.type());
+
+       $('#' + triangle.type() ).append("<li>" + a + ", " + b + ", " + c + "</li>");
+
 
        var x1 = (100 + a);
        var x2 = (100 + triangle.short());
