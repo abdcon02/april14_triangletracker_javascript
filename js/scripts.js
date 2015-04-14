@@ -13,13 +13,21 @@ $(document).ready(function() {
     var triangle = {side1: a,
                     side2: b,
                     side3: c,
+                    height: function(){
+                        var s = ((this.side1 + this.side2 + this.side3)/2);
+                        var A = Math.sqrt(s * (s - this.side1) * (s - this.side2) * (s - this.side3));
+
+                        var sorted = [parseInt(this.side1), parseInt(this.side2), parseInt(this.side3)].sort(function(x,y) {
+                          return y-x;
+                        });
+
+                        var h = ( (2 * A) / sorted[0]);
+                        return h;
+                    },
                     type: function(){
                         var desc_number_array = [parseInt(this.side1), parseInt(this.side2), parseInt(this.side3)].sort(function(x,y) {
                           return y-x;
                         });
-                          console.log(desc_number_array);
-                          console.log(desc_number_array[0]);
-
 
                         if (desc_number_array[0] <= (desc_number_array[1] + desc_number_array[2])){
 
@@ -45,15 +53,15 @@ $(document).ready(function() {
 
        $('#type').text(triangle.type());
 
-       var c1 = 10 + triangle.side1,
-           c2 = 10 + triangle.side2;
-
-    if (triangle.type() === "impossible") {
-        $('#picture').hide();
-    } else {
-        $('#picture').show();
-        $('polygon').attr("points", '100,100 ' + c1 + ",100 100," + c2);
-    }
+    // if (triangle.type() === "isosceles" || triangle.type() === "equilateral" || triangle.type() === "scalene") {
+    //     $('#picture').show();
+    //                                 //point1    //point2     //point3
+    //     $('polygon').attr("points", '100,100 ' + c1 + ",100 100," + c2);
+    // } else {
+    //     $('#picture').hide();
+    // }
+    console.log(triangle.type());
+    console.log(triangle.height());
 
   $('#result').show()
   event.preventDefault();
