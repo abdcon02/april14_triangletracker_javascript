@@ -6,9 +6,9 @@ $(document).ready(function() {
 //clears the type each time button is pressed so you can check again without refreshing page
     $('#type').empty();
 
-    var a = $('input#side1').val();
-    var b = $('input#side2').val();
-    var c = $('input#side3').val();
+    var a = parseInt($('input#side1').val());
+    var b = parseInt($('input#side2').val());
+    var c = parseInt($('input#side3').val());
 
     var triangle = {side1: a,
                     side2: b,
@@ -44,6 +44,16 @@ $(document).ready(function() {
                 };
 
        $('#type').text(triangle.type());
+
+       var c1 = 10 + triangle.side1,
+           c2 = 10 + triangle.side2;
+
+    if (triangle.type() === "impossible") {
+        $('#picture').hide();
+    } else {
+        $('#picture').show();
+        $('polygon').attr("points", '100,100 ' + c1 + ",100 100," + c2);
+    }
 
   $('#result').show()
   event.preventDefault();
