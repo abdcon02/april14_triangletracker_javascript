@@ -10,26 +10,34 @@ $(document).ready(function() {
     var b = parseInt($('input#side2').val());
     var c = parseInt($('input#side3').val());
 
+    var sorted = [a, b, c].sort(function(x,y) {
+      return y-x;
+    });
+    a = sorted[0];
+    b = sorted[1];
+    c = sorted[2];
+
     var triangle = {side1: a,
                     side2: b,
                     side3: c,
+
                     height: function(){
                         var s = ((this.side1 + this.side2 + this.side3)/2);
                         var A = Math.sqrt(s * (s - this.side1) * (s - this.side2) * (s - this.side3));
 
-                        var sorted = [parseInt(this.side1), parseInt(this.side2), parseInt(this.side3)].sort(function(x,y) {
-                          return y-x;
-                        });
-
-                        var h = ( (2 * A) / sorted[0]);
+                        var h = parseFloat(((2 * A) / this.side1));
                         return h;
+
+                    },
+                    short: function(){
+                        var s2s = Math.pow(this.side2, 2);
+                        var h2 =  Math.pow(this.height(), 2);
+                        var z = parseInt(Math.sqrt(s2s - h2));
+                        return z;
                     },
                     type: function(){
-                        var desc_number_array = [parseInt(this.side1), parseInt(this.side2), parseInt(this.side3)].sort(function(x,y) {
-                          return y-x;
-                        });
 
-                        if (desc_number_array[0] <= (desc_number_array[1] + desc_number_array[2])){
+                        if (sorted[0] <= (sorted[1] + sorted[2])){
 
                           if (this.side1 === this.side2 && this.side2 === this.side3 && this.side3 === this.side1){
                             $('#equilateral').append("<li>" + this.side1 + ", " + this.side2 + ", " + this.side3 + "</li>");
@@ -39,7 +47,7 @@ $(document).ready(function() {
                               $('#isosceles').append("<li>" + this.side1 + ", " + this.side2 + ", " + this.side3 + "</li>");
                               return "isosceles";
 
-                          } if ((this.side1 != this.side2) && (this.side2 != this.side3)) {
+                          } if ((this.side1 !== this.side2) && (this.side2 !== this.side3)) {
                               $('#scalene').append("<li>" + this.side1 + ", " + this.side2 + ", " + this.side3 + "</li>");
                               return "scalene";
 
@@ -53,15 +61,17 @@ $(document).ready(function() {
 
        $('#type').text(triangle.type());
 
-    // if (triangle.type() === "isosceles" || triangle.type() === "equilateral" || triangle.type() === "scalene") {
-    //     $('#picture').show();
-    //                                 //point1    //point2     //point3
-    //     $('polygon').attr("points", '100,100 ' + c1 + ",100 100," + c2);
-    // } else {
-    //     $('#picture').hide();
-    // }
-    console.log(triangle.type());
-    console.log(triangle.height());
+       var x1 = (100 + a);
+       var x2 = (100 + triangle.short());
+       var y2 = (100 + triangle.height());
+
+        if ($('#type').text() !== "impossible") {
+            $('#picture').show();
+                                        //point1    //point2     //point3
+            $('polygon').attr("points", '100,100 ' + x1 + ",100 " + x2 + "," + y2);
+        } else {
+            $('#picture').hide();
+        }
 
   $('#result').show()
   event.preventDefault();
