@@ -1,51 +1,5 @@
-var triangle = function(a, b, c) {
-
-//math.abs allows for negative input values
-  var lengths = [Math.abs(a), Math.abs(b), Math.abs(c)],
-      sorted = [],
-      squares = [],
-      i;
-
-//sorts inputs from smallest to largest
-  sorted = lengths.sort(function(a, b) { return a-b});
-
-//squares sorted values for right triangle check
-  for (i = 0; i < sorted.length; i++) {
-    squares[i] = Math.pow(sorted[i], 2);
-  }
-
-// if it's a triangle
-  if (sorted[0] + sorted[1] > sorted[2]) {
-
-  //all sides different
-      if ((sorted[0] != sorted[1]) && (sorted[0] != sorted[2]) && (sorted[1] != sorted[2])
-          && (squares[0] + squares[1] != squares[2])) {
-        return "scalene";
-      }
-
-  //two sides the same
-      if ((sorted[0] === sorted[1]) && (sorted[0] != sorted[2])) {
-        return "isosceles";
-      }
-
-  //all sides the same
-      if ((sorted[0] === sorted[1]) && (sorted[0] === sorted[2]) && (sorted[1] === sorted[2])) {
-        return "equilateral";
-      }
-
-  // a^2 + b^2 = c^2
-      if (squares[0] + squares[1] === squares[2]) {
-        return "right";
-      }
-
-//not a triangle
-  } else {
-    return "impossible";
-  }
-
-};
-
 $(document).ready(function() {
+    "use strict";
 
   $('form#input').submit(function(event) {
 
@@ -56,9 +10,40 @@ $(document).ready(function() {
     var b = $('input#side2').val();
     var c = $('input#side3').val();
 
-    var result = triangle(a, b, c);
+    var triangle = {side1: a,
+                    side2: b,
+                    side3: c,
+                    type: function(){
+                        var desc_number_array = [parseInt(this.side1), parseInt(this.side2), parseInt(this.side3)].sort(function(x,y) {
+                          return y-x;
+                        });
+                          console.log(desc_number_array);
+                          console.log(desc_number_array[0]);
 
-    $('#type').text(result);
+
+                        if (desc_number_array[0] <= (desc_number_array[1] + desc_number_array[2])){
+
+                          if (this.side1 === this.side2 && this.side2 === this.side3 && this.side3 === this.side1){
+                            $('#equilateral').append("<li>" + this.side1 + ", " + this.side2 + ", " + this.side3 + "</li>");
+                            return "equilateral";
+
+                          } if (this.side1 === this.side2 || this.side2 === this.side3 || this.side3 === this.side1 ){
+                              $('#isosceles').append("<li>" + this.side1 + ", " + this.side2 + ", " + this.side3 + "</li>");
+                              return "isosceles";
+
+                          } if ((this.side1 != this.side2) && (this.side2 != this.side3)) {
+                              $('#scalene').append("<li>" + this.side1 + ", " + this.side2 + ", " + this.side3 + "</li>");
+                              return "scalene";
+
+                        }} else {
+                          $('#impossible').append("<li>" + this.side1 + ", " + this.side2 + ", " + this.side3 + "</li>");
+                          return "impossible";
+
+                        }
+                    }
+                };
+
+       $('#type').text(triangle.type());
 
   $('#result').show()
   event.preventDefault();
