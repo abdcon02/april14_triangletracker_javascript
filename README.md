@@ -1,9 +1,9 @@
-# Assessment 5: Triangles for Epicodus
+# Triangles for Epicodus
 ## by Tanner Heffner & Connor Abdelnoor
 ### Date: April 10th, 2015
 #### Description
 
-This app allows users to input 3 side lengths and returns what type of triangle those lengths form, if any.
+This app allows users to input 3 side lengths and returns what type of triangle those lengths form, if any. It also draws the triangle on the page.
 
 #### Setup instructions
 1. Clone this git repository
